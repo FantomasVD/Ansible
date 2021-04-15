@@ -1,0 +1,34 @@
+---
+
+- name: Run show commands on routers
+  hosts: 
+  connection: local
+
+  tasks:
+
+  - name: timestamp
+    local_action: command date +%Y%m%d
+    register: timestamp
+
+  - name: run show commands
+    ansible.netcommon.telnet:
+      user: 
+      password: 
+      login_prompt: 'Username: '
+      prompts:
+      - '[>#]'
+      command:
+      - terminal length 0
+      - show run
+    register: show_run
+
+  - name: Get current time exp. 21:46
+    local_action: command date +%H%M
+    register: time
+
+#  - debug:
+#      msg: "{{ show_run.output[1] }}"
+
+  - copy:
+      content: "{{ show_run.output[1] }}"
+      dest: "/share/Backup/Network_device/{{ inventory_hostname }}_{{ timestamp.stdout }}_{{ time.stdout }}.txt"

@@ -1,0 +1,15 @@
+---
+
+- hosts: localhost
+  tasks:
+  - name: Ansible delete files older than 5 days example
+    find:
+      paths: /share/Backup/Network_device/
+      age: 2d
+    register: files_to_delete
+
+  - name: Ansible remove files older than a date example
+    file:
+      path: "{{ item.path }}"
+      state: absent
+    with_items: "{{ files_to_delete.files }}"
