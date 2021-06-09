@@ -1,0 +1,8 @@
+[app]
+127.0.0.1
+
+[app:vars]
+login=app
+password=app
+group=app
+nginx_port="9090"

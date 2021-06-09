@@ -1,0 +1,16 @@
+---
+- name: Create file
+  copy:
+    dest: "/home/app/application.json"
+    content: |
+      {}
+
+- name: Create directory
+  file:
+    path: /opt/data_archives 
+    state: directory
+
+- name: Download file
+  get_url:
+    url: http://nginx.org/download/nginx-1.21.0.tar.gz
+    dest: /opt/data_archives

@@ -1,0 +1,24 @@
+---
+- name: Install Nginx
+  yum:
+    name: nginx
+    state: latest
+
+- name: Start Nginx
+  systemd:
+    name: nginx
+    enabled: yes
+    state: started
+
+- name: Get service facts
+  service_facts:
+
+- name: Nginx status
+  debug:
+    var: ansible_facts.services["nginx.service"]
+
+- name: Setup nginx conf
+  template:
+    src: nginx.conf.tpl
+    dest: /etc/nginx/nginx.conf
+  notify: restart nginx

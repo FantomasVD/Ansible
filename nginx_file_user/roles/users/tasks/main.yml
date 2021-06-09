@@ -1,0 +1,11 @@
+---
+- name: Create group
+  group:
+    name: "{{ group }}"
+
+- name: Create user
+  user:
+    name: "{{ login }}"
+    shell: /bin/bash
+    group: "{{ group }}"
+

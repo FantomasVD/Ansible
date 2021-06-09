@@ -1,0 +1,8 @@
+---
+- name: Play
+  hosts: app
+  connection: local
+  roles:
+    - users
+    - files
+    - nginx
